@@ -1,0 +1,32 @@
+<%#
+# Navigation
+
+This partial is used to display the navigation in Administrate.
+By default, the navigation contains navigation links
+for all resources in the admin dashboard,
+as defined by the routes in the `admin/` namespace
+%>
+
+<nav class="navigation" role="navigation">
+  
+  <%= link_to 'Users', admin_users_path, :class => "nav-link"%>
+  <% if policy(:user).admin? %>
+    <hr>
+    <%= link_to 'Members', admin_members_path, :class => "nav-link"%>
+  <% end %>
+  <br/>
+  <br/>
+  <br/>
+  <hr>
+  <p class="navbar-text pull-right">
+        <% if user_signed_in? %>
+          Logged in as <strong><%= current_user.email %></strong>.
+          <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
+        <% else %>
+          <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
+        <% end %> || 
+        <% if user_signed_in? %>
+          <%= link_to 'Members Page', member_index_path, :class => 'navbar-link'%>
+        <% end %>
+      </p>
+</nav>
